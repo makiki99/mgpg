@@ -1,5 +1,23 @@
 let sampleLevel = {
-	levelData : [
+	spriteData : [
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+		[1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0]
+	],
+	collisionData : [
 		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -23,16 +41,16 @@ let sampleLevel = {
 function loadLevel(level) {
 	clearGroup(walls);
 	clearGroup(bgElements);
-	for (var i = 0; i < level.levelData.length; i++) {
-		for (var j = 0; j < level.levelData[i].length; j++) {
+	for (var i = 0; i < level.collisionData.length; i++) {
+		for (var j = 0; j < level.collisionData[i].length; j++) {
 			let posX = TSIZE*j;
 			let posY = TSIZE*i+1;
-			switch (level.levelData[i][j]) {
+			switch (level.collisionData[i][j]) {
 				case 0:
-					loadBgElement("img/bgwall.png", posX, posY);
+					loadBgElement(level.spriteData[i][j], posX, posY);
 					break;
 				case 1:
-					loadWall("img/wall.png", posX, posY);
+					loadWall(level.spriteData[i][j], posX, posY);
 					break;
 			}
 		}
@@ -42,14 +60,24 @@ function loadLevel(level) {
 }
 
 function loadBgElement(img, x, y) {
-	spr = g.sprite(img);
+	let texture = g.frame(
+		"img/tileset.png",
+		(img%16)*TSIZE, Math.floor(img/16)*TSIZE,
+		32, 32
+	)
+	spr = g.sprite(texture);
 	spr.x = x;
 	spr.y = y;
 	bgElements.addChild(spr);
 }
 
 function loadWall(img, x, y) {
-	spr = g.sprite(img);
+	let texture = g.frame(
+		"img/tileset.png",
+		(img%16)*TSIZE, Math.floor(img/16)*TSIZE,
+		32, 32
+	)
+	spr = g.sprite(texture);
 	spr.x = x;
 	spr.y = y;
 	walls.addChild(spr);

@@ -2,8 +2,7 @@ const TSIZE = 32;
 let assets = [
 	"img/playerL.png",
 	"img/playerR.png",
-	"img/bgwall.png",
-	"img/wall.png"
+	"img/tileset.png"
 ];
 let keys = [];
 let g = hexi(TSIZE*16,TSIZE*16, setup, assets, load);
