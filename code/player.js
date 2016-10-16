@@ -13,10 +13,10 @@ function updatePlayer() {
 	//collision
 	player.inAir = true;
 	let playerHit = g.contain(player, {
-			x:gamefield.x,
-			y:gamefield.y,
-			width:gamefield.width+gamefield.x,
-			height:gamefield.height+gamefield.y
+			x:TSIZE*0,
+			y:TSIZE*0,
+			width:TSIZE*16,
+			height:TSIZE*16
 		}
 	);
 	if (playerHit) {
@@ -34,6 +34,8 @@ function updatePlayer() {
 			switch (playerHit) {
 				case "bottom":
 					player.inAir = false;
+					player.vy = 0;
+					break;
 				case "top":
 					player.vy = 0;
 					break;
@@ -46,7 +48,7 @@ function updatePlayer() {
 	)
 
 	//velocity
-	player.vx *= 0.72;
+	player.vx *= 0.4;
 	if (keys[37]) {
 		player.vx -= 2;
 	}
@@ -54,10 +56,13 @@ function updatePlayer() {
 		player.vx += 2;
 	}
 	if (keys[38] & !player.inAir) {
-		player.vy = -15;
+		player.vy = -12;
 		player.inAir = true;
 	}
 	player.vy += 0.5;
+	if (player.vy < -12) {
+		player.vy = -12;
+	}
 
 	//sprite change
 	if (player.vx < 0) {
