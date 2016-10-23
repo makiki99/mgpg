@@ -12,25 +12,9 @@ function updatePlayer() {
 
 	//collision
 	player.inAir = true;
-	let playerHit = g.contain(player, {
-			x:TSIZE*0,
-			y:TSIZE*0,
-			width:TSIZE*16,
-			height:TSIZE*16
-		}
-	);
-	if (playerHit) {
-		if (playerHit.has("bottom")) {
-			player.inAir = false;
-			player.vy = 0;
-		}
-		if (playerHit.has("top")) {
-			player.vy = 0;
-		}
-	}
-	walls.children.forEach(
+	walls.forEach(
 		box => {
-			playerHit = g.rectangleCollision(player, box);
+			let playerHit = g.rectangleCollision(player, box);
 			switch (playerHit) {
 				case "bottom":
 					player.inAir = false;
