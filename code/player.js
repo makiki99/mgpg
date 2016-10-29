@@ -25,45 +25,41 @@ function updatePlayer() {
 		worldData[tilePos[0]][tilePos[1]+1],
 		worldData[tilePos[0]+1][tilePos[1]+1],
 	];
-	for (let i = 0; i < 4; i++) {
-		tileDebugData[i].x = tilesToCheck[i][0]*32;
-		tileDebugData[i].y = tilesToCheck[i][1]*32;
-	}
 
-	let walls = g.group();
+	let walls = [];
 	let checkedTiles = [false,false,false,false];
 
 	//vertical walls
 	if (tileData[0] === 2 && tileData[2] === 2) {
-		walls.addChild(createCollisionWall(tilePos[0],tilePos[1],1,2));
+		walls.push(createCollisionWall(tilePos[0],tilePos[1],1,2));
 		checkedTiles[0] = true;
 		checkedTiles[2] = true;
 	}
 	if (tileData[1] === 2 && tileData[3] === 2) {
-		walls.addChild(createCollisionWall(tilePos[0]+1,tilePos[1],1,2));
+		walls.push(createCollisionWall(tilePos[0]+1,tilePos[1],1,2));
 		checkedTiles[1] = true;
 		checkedTiles[3] = true;
 	}
 
 	// horizontal walls
 	if (tileData[0] === 2 && tileData[1] === 2) {
-		walls.addChild(createCollisionWall(tilePos[0],tilePos[1],2,1));
+		walls.push(createCollisionWall(tilePos[0],tilePos[1],2,1));
 		checkedTiles[1] = true;
 		checkedTiles[3] = true;
 	}
 	if (tileData[2] === 2 && tileData[3] === 2) {
-		walls.addChild(createCollisionWall(tilePos[0],tilePos[1]+1,2,1));
+		walls.push(createCollisionWall(tilePos[0],tilePos[1]+1,2,1));
 		checkedTiles[1] = true;
 		checkedTiles[3] = true;
 	}
 
 	for (let i = 0; i < 4; i++) {
 		if (!checkedTiles[i] && tileData[i] === 2) {
-			walls.addChild(createCollisionWall(tilePos[0]+(i%2),tilePos[1]+Math.floor(i/2),1,1))
+			walls.push(createCollisionWall(tilePos[0]+(i%2),tilePos[1]+Math.floor(i/2),1,1))
 		}
 	}
 
-	walls.children.forEach(
+	walls.forEach(
 		box => {
 			let playerHit = g.rectangleCollision(player, box);
 			switch (playerHit) {
@@ -81,6 +77,8 @@ function updatePlayer() {
 			}
 		}
 	)
+	g.remove(walls);
+
 	//velocity
 	player.vx *= 0.4;
 	if (keys[37]) {
@@ -110,7 +108,6 @@ function updatePlayer() {
 
 function createCollisionWall(x,y,w,h) {
 	let temp = g.rectangle(TSIZE*w,TSIZE*h);
-	temp.visible = false;
 	temp.x = TSIZE*x-cam.x;
 	temp.y = TSIZE*y-cam.y;
 	return temp;
