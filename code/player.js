@@ -26,36 +26,58 @@ function updatePlayer() {
 		worldData[tilePos[0]+1][tilePos[1]+1],
 	];
 
-	let walls = [];
+	let walls = [], pushers = [];
 	let checkedTiles = [false,false,false,false];
 
 	//vertical walls
 	if (tileData[0] === 2 && tileData[2] === 2) {
-		walls.push(createCollisionWall(tilePos[0],tilePos[1],1,2));
+		walls.push(createElement(tilePos[0],tilePos[1],1,2));
 		checkedTiles[0] = true;
 		checkedTiles[2] = true;
 	}
 	if (tileData[1] === 2 && tileData[3] === 2) {
-		walls.push(createCollisionWall(tilePos[0]+1,tilePos[1],1,2));
+		walls.push(createElement(tilePos[0]+1,tilePos[1],1,2));
 		checkedTiles[1] = true;
 		checkedTiles[3] = true;
 	}
 
 	// horizontal walls
 	if (tileData[0] === 2 && tileData[1] === 2) {
-		walls.push(createCollisionWall(tilePos[0],tilePos[1],2,1));
+		walls.push(createElement(tilePos[0],tilePos[1],2,1));
+		checkedTiles[0] = true;
 		checkedTiles[1] = true;
-		checkedTiles[3] = true;
 	}
 	if (tileData[2] === 2 && tileData[3] === 2) {
-		walls.push(createCollisionWall(tilePos[0],tilePos[1]+1,2,1));
-		checkedTiles[1] = true;
+		walls.push(createElement(tilePos[0],tilePos[1]+1,2,1));
+		checkedTiles[2] = true;
 		checkedTiles[3] = true;
 	}
 
 	for (let i = 0; i < 4; i++) {
-		if (!checkedTiles[i] && tileData[i] === 2) {
-			walls.push(createCollisionWall(tilePos[0]+(i%2),tilePos[1]+Math.floor(i/2),1,1))
+		if (!checkedTiles[i]) {
+			switch (tileData[i]) {
+				case 2:
+					walls.push(createElement(tilePos[0]+(i%2),tilePos[1]+Math.floor(i/2),1,1));
+					break;
+				case 3:
+					pushers.push(createElement(tilePos[0]+(i%2),tilePos[1]+Math.floor(i/2),1,1));
+					pushers[pushers.length-1].direction = "left";
+					break;
+				case 4:
+					pushers.push(createElement(tilePos[0]+(i%2),tilePos[1]+Math.floor(i/2),1,1));
+					pushers[pushers.length-1].direction = "up";
+					break;
+				case 5:
+					pushers.push(createElement(tilePos[0]+(i%2),tilePos[1]+Math.floor(i/2),1,1));
+					pushers[pushers.length-1].direction = "right";
+					break;
+				case 6:
+					pushers.push(createElement(tilePos[0]+(i%2),tilePos[1]+Math.floor(i/2),1,1));
+					pushers[pushers.length-1].direction = "down";
+					break;
+				case 7:
+					break;
+			}
 		}
 	}
 
@@ -79,8 +101,38 @@ function updatePlayer() {
 	)
 	g.remove(walls);
 
+	let pushDir = {
+		up: false,
+		down: false,
+		right: false,
+		left: false
+	}
+
+	pushers.forEach(
+		box => {
+			let playerHit = g.hit(player, box);
+			if (playerHit) {
+				pushDir[box.direction] = true;
+			}
+		}
+	)
+	g.remove(pushers);
+
 	//velocity
-	player.vx *= 0.4;
+	player.vx *= 0.4; //friction
+	if (pushDir.up) {
+		player.vy -= 1;
+	}
+	if (pushDir.down) {
+		player.vy += 1;
+	}
+	if (pushDir.left) {
+		player.vx -= 1.5;
+	}
+	if (pushDir.right) {
+		player.vx += 1.5;
+	}
+
 	if (keys[37]) {
 		player.vx -= 2;
 	}
@@ -106,9 +158,10 @@ function updatePlayer() {
 	}
 }
 
-function createCollisionWall(x,y,w,h) {
+function createElement(x,y,w,h) {
 	let temp = g.rectangle(TSIZE*w,TSIZE*h);
-	temp.x = TSIZE*x-cam.x;
-	temp.y = TSIZE*y-cam.y;
+	temp.x = TSIZE*x;
+	temp.y = TSIZE*y;
+	world.addChild(temp);
 	return temp;
 }
