@@ -26,7 +26,7 @@ function updatePlayer() {
 		worldData[tilePos[0]+1][tilePos[1]+1],
 	];
 
-	let walls = [], pushers = [];
+	let walls = [], pushers = [], goal = [];
 	let checkedTiles = [false,false,false,false];
 
 	//vertical walls
@@ -76,6 +76,7 @@ function updatePlayer() {
 					pushers[pushers.length-1].direction = "down";
 					break;
 				case 7:
+					goal.push(createElement(tilePos[0]+(i%2),tilePos[1]+Math.floor(i/2),1,1));
 					break;
 			}
 		}
@@ -117,6 +118,19 @@ function updatePlayer() {
 		}
 	)
 	g.remove(pushers);
+
+	for (var i = 0; i < goal.length; i++) {
+		if (g.hit(player,goal[i])) {
+			currentLevel++;
+			if (currentLevel < levelList.length) {
+				loadLevel(levelList[currentLevel]);
+			} else {
+				g.state = end;
+			}
+			break;
+		}
+	}
+	g.remove(goal);
 
 	//velocity
 	player.vx *= 0.4; //friction

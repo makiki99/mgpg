@@ -2,14 +2,20 @@ const TSIZE = 32;
 let assets = [
 	"img/playerL.png",
 	"img/playerR.png",
-	"img/tileset.png",
+	"img/tileset.png"
+];
+
+let levelList = [
 	"maps/level_1.json"
 ];
+let currentLevel = 0;
+
 let keys = [];
 let g = hexi(TSIZE*16,TSIZE*16, setup, assets, load);
 let cam, world, player;
 let worldData;
 
+levelList.forEach(lvl=>{assets.push(lvl);});
 g.start();
 
 function load() {
@@ -26,6 +32,10 @@ function play() {
 	updatePlayer();
 	updateCamera();
 	//updateTimer();
+}
+
+function end() {
+
 }
 
 //keyboard handlers
