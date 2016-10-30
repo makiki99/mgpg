@@ -1,6 +1,7 @@
 function loadLevel(level) {
+	levelInfo.content = "Level " + (currentLevel+1);
 	if (world !== undefined) {
-		world.destroy();
+		g.remove(world);
 	}
 	world = g.makeTiledWorld(level,"img/tileset.png");
 	player = g.sprite([
@@ -19,4 +20,6 @@ function loadLevel(level) {
 			worldData[x].push(world.getObject("World").data[width*y+x]);
 		}
 	}
+	cam = g.worldCamera(world);
+	camLayer.addChild(world);
 }
