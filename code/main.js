@@ -17,10 +17,11 @@ let worldData;
 let g = hexi(TSIZE*16,TSIZE*17, setup, assets, load);
 
 let splashContainer, splashTitle, splashMessage;
-let beginContainer, beginMessage;
 let camLayer, cam, world, player;
 let hud, timer = g.text(""), levelInfo = g.text("");
 let endContainer, endTimer;
+let animContainer;
+let animation;
 
 levelList.forEach(lvl=>{assets.push(lvl);});
 
@@ -69,6 +70,8 @@ function setup() {
 	splashContainer.addChild(splashTitle);
 	splashContainer.addChild(splashMessage);
 
+	animContainer = g.group();
+
 	g.state = splash;
 
 }
@@ -82,6 +85,16 @@ function splash() {
 		currentLevel = 0;
 		frameCount = 0;
 		loadLevel(levelList[0]);
+		animation = {
+			/*
+				possible animation types:
+				0 - no animation
+				1 - level switch animation
+				2 - game end animation
+			*/
+			animFrame : 0,
+			animType : 0
+		};
 		g.state = play;
 	}
 }
@@ -94,6 +107,7 @@ function play() {
 	updatePlayer();
 	updateCamera();
 	updateTimer();
+	updateAnimation();
 }
 
 function end() {

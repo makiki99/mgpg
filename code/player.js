@@ -123,9 +123,9 @@ function updatePlayer() {
 		if (g.hit(player,goal[i])) {
 			currentLevel++;
 			if (currentLevel < levelList.length) {
-				loadLevel(levelList[currentLevel]);
+				nextLevel();
 			} else {
-				g.state = end;
+				endGame();
 			}
 			break;
 		}
