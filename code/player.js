@@ -121,13 +121,7 @@ function updatePlayer() {
 
 	for (var i = 0; i < goal.length; i++) {
 		if (g.hit(player,goal[i])) {
-			currentLevel++;
-			if (currentLevel < levelList.length) {
-				nextLevel();
-			} else {
-				endGame();
-			}
-			break;
+			nextLevel();
 		}
 	}
 	g.remove(goal);

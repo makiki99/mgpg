@@ -21,7 +21,7 @@ let camLayer, cam, world, player;
 let hud, timer = g.text(""), levelInfo = g.text("");
 let endContainer, endTimer;
 let animContainer;
-let animation;
+let animation, slidingRectangle;
 
 levelList.forEach(lvl=>{assets.push(lvl);});
 
@@ -71,7 +71,8 @@ function setup() {
 	splashContainer.addChild(splashMessage);
 
 	animContainer = g.group();
-
+	slidingRectangle = g.rectangle(TSIZE*16, TSIZE*16, 0, 0, 0, -TSIZE*32, 0);
+	animContainer.addChild(slidingRectangle);
 	g.state = splash;
 
 }
@@ -92,8 +93,8 @@ function splash() {
 				1 - level switch animation
 				2 - game end animation
 			*/
-			animFrame : 0,
-			animType : 0
+			frame : 0,
+			type : 0
 		};
 		g.state = play;
 	}
