@@ -8,6 +8,7 @@ function loadPlayer() {
 }
 
 function updatePlayer() {
+
 	g.move(player);
 
 	//collision
@@ -19,11 +20,20 @@ function updatePlayer() {
 		[tilePos[0],tilePos[1]+1],
 		[tilePos[0]+1,tilePos[1]+1]
 	]
+
+	function getTile(x,y) {
+		if (worldData[x] !== undefined && worldData[x][y] !== undefined) {
+			return worldData[x][y];
+		} else {
+			return 2;
+		}
+	}
+
 	let tileData = [
-		worldData[tilePos[0]][tilePos[1]],
-		worldData[tilePos[0]+1][tilePos[1]],
-		worldData[tilePos[0]][tilePos[1]+1],
-		worldData[tilePos[0]+1][tilePos[1]+1],
+		getTile(tilePos[0],tilePos[1]),
+		getTile(tilePos[0]+1,tilePos[1]),
+		getTile(tilePos[0],tilePos[1]+1),
+		getTile(tilePos[0]+1,tilePos[1]+1),
 	];
 
 	let walls = [], pushers = [], goal = [];

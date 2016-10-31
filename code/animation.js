@@ -1,7 +1,7 @@
 function updateAnimation() {
 	switch (animation.type) {
 		case 1:
-			if (animation.frame == 16) {
+			if (animation.frame === 16) {
 				loadLevel(levelList[currentLevel]);
 			}
 			if (animation.frame < 33) {
@@ -13,7 +13,7 @@ function updateAnimation() {
 			}
 			break;
 		case 2:
-			if (animation.frame == 90) {
+			if (animation.frame === 90) {
 				g.state = end;
 			} else {
 				world.alpha = 1-(animation.frame/60)
