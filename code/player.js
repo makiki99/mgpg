@@ -137,7 +137,7 @@ function updatePlayer() {
 	g.remove(goal);
 
 	//velocity
-	player.vx *= 0.4; //friction
+	player.vx = 0; //ensures horizontal velocity being constant
 	if (pushDir.up) {
 		player.vy -= 1;
 	}
@@ -145,17 +145,17 @@ function updatePlayer() {
 		player.vy += 1;
 	}
 	if (pushDir.left) {
-		player.vx -= 1.5;
+		player.vx -= 2;
 	}
 	if (pushDir.right) {
-		player.vx += 1.5;
+		player.vx += 2;
 	}
 
 	if (keys[37]) {
-		player.vx -= 2;
+		player.vx -= 3;
 	}
 	if (keys[39]) {
-		player.vx += 2;
+		player.vx += 3;
 	}
 	if (keys[38] & !player.inAir) {
 		player.vy = -12;
@@ -166,13 +166,6 @@ function updatePlayer() {
 		player.vy = -12;
 	} else if (player.vy > 12) {
 		player.vy = 12;
-	}
-
-	//sprite change
-	if (player.vx < 0) {
-		player.show(0);
-	} else if (player.vx > 0){
-		player.show(1);
 	}
 }
 

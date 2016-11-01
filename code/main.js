@@ -1,14 +1,9 @@
 const TSIZE = 32;
 let assets = [
-	"img/playerL.png",
-	"img/playerR.png",
+	"img/player.png",
 	"img/tileset.png"
 ];
 
-let levelList = [
-	"maps/level_1.json",
-	"maps/level_2.json"
-];
 let currentLevel;
 let frameCount;
 

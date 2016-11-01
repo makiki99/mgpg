@@ -4,10 +4,7 @@ function loadLevel(level) {
 		g.remove(world);
 	}
 	world = g.makeTiledWorld(level,"img/tileset.png");
-	player = g.sprite([
-		"img/playerL.png",
-		"img/playerR.png"
-	])
+	player = g.sprite("img/player.png")
 	player.x = world.getObject("player").x;
 	player.y = world.getObject("player").y;
 	world.addChild(player);
