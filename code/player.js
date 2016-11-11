@@ -21,6 +21,9 @@ function updatePlayer() {
 		if (worldData[x] !== undefined && worldData[x][y] !== undefined) {
 			return worldData[x][y];
 		} else {
+			if (animation.type == 2) {
+				return 1;
+			}
 			return 2;
 		}
 	}
