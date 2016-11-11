@@ -4,7 +4,7 @@ function loadLevel(level) {
 		g.remove(world);
 	}
 	world = g.makeTiledWorld(level,"img/tileset.png");
-	player = g.sprite("img/player.png")
+	loadPlayer();
 	player.x = world.getObject("player").x;
 	player.y = world.getObject("player").y;
 	world.addChild(player);
@@ -16,6 +16,9 @@ function loadLevel(level) {
 		for (let y = 0; y < height; y++) {
 			worldData[x].push(world.getObject("World").data[width*y+x]);
 		}
+	}
+	if (currentLevel == 4) {
+		unlockables.doubleJump = true;
 	}
 	cam = g.worldCamera(world);
 	camLayer.addChild(world);

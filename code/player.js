@@ -1,10 +1,6 @@
 function loadPlayer() {
-	player = g.sprite([
-		"img/playerL.png",
-		"img/playerR.png"
-	]);
+	player = g.sprite("img/player.png");
 	player.inAir = true;
-	scene.addChild(player);
 }
 
 function updatePlayer() {

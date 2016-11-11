@@ -6,6 +6,7 @@ let assets = [
 
 let currentLevel;
 let frameCount;
+let unlockables;
 
 let keys = [];
 let worldData;
@@ -30,7 +31,6 @@ function load() {
 function setup() {
 
 	camLayer = g.group();
-	//loadLevel(levelList[0]);
 
 	hud = g.group();
 	hud.y = TSIZE*16;
@@ -86,7 +86,7 @@ function splash() {
 				possible animation types:
 				0 - no animation
 				1 - level switch animation
-				2 - game end animation
+				2 - game fade out
 			*/
 			frame : 0,
 			type : 0
