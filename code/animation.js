@@ -23,6 +23,7 @@ function updateAnimation() {
 			world.alpha = 1;
 			animation.type = 0;
 			animation.frame = 0;
+			slidingRectangle.x = TSIZE*-16;
 	}
 	animation.frame++;
 }

@@ -100,6 +100,7 @@ function splash() {
 function play() {
 	if (keys[82]) {
 		g.state = splash;
+		animation.type = -1;
 	}
 	splashContainer.visible = false;
 	camLayer.visible = true;
@@ -120,6 +121,7 @@ function end() {
 	endContainer.putCenter(endTimer,0,0);
 	if (keys[82]) {
 		g.state = splash;
+		animation.type = -1;
 	}
 }
 
