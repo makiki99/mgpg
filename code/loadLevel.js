@@ -17,9 +17,6 @@ function loadLevel(level) {
 			worldData[x].push(world.getObject("World").data[width*y+x]);
 		}
 	}
-	if (currentLevel == 4) {
-		unlockables.doubleJump = true;
-	}
 	cam = g.worldCamera(world);
 	camLayer.addChild(world);
 }
