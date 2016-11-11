@@ -59,6 +59,7 @@ function setup() {
 	splashMessage = g.text(
 		"Press enter to start the game\n\
 		Use arrow keys to move and jump.\n\
+		You are faster on ground than in air.\n\
 		Press R to come back to this screen and reset the game."
 	);
 	splashMessage.style = {font: TSIZE/2+"px monospace", fill: "white", align: "center"};

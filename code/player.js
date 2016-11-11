@@ -156,6 +156,9 @@ function updatePlayer() {
 	if (keys[39]) {
 		player.vx += 3;
 	}
+	if (!player.inAir) {
+		player.vx = Math.round(player.vx*4/3)
+	}
 	if (keys[38] & !player.inAir) {
 		player.vy = -12;
 		player.inAir = true;
