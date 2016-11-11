@@ -57,8 +57,9 @@ function setup() {
 	splashTitle.style = {font: TSIZE+"px monospace", fill: "white", align: "center"};
 	splashContainer.putCenter(splashTitle,0,-4*TSIZE);
 	splashMessage = g.text(
-		"Press enter to start\n\
-		Use arrow keys to move and jump.\n"
+		"Press enter to start the game\n\
+		Use arrow keys to move and jump.\n\
+		Press R to come back to this screen and reset the game."
 	);
 	splashMessage.style = {font: TSIZE/2+"px monospace", fill: "white", align: "center"};
 	splashContainer.putCenter(splashMessage,0,2*TSIZE);
@@ -96,6 +97,9 @@ function splash() {
 }
 
 function play() {
+	if (keys[82]) {
+		g.state = splash;
+	}
 	splashContainer.visible = false;
 	camLayer.visible = true;
 	hud.visible = true;
@@ -113,6 +117,9 @@ function end() {
 	endContainer.visible = true;
 	endTimer.content = "TIME:\n" + timer.content;
 	endContainer.putCenter(endTimer,0,0);
+	if (keys[82]) {
+		g.state = splash;
+	}
 }
 
 //keyboard handlers
